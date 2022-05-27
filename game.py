@@ -12,6 +12,14 @@ pygame.display.set_caption("Graph")
 space = pymunk.Space()  
 space.gravity = (0, -1)
 COLLTYPE_BALL = 2
+COLLTYPE_LINE = 3
+
+
+def asd(): 
+    print("collision or smth")
+h = space.add_collision_handler(COLLTYPE_BALL, COLLTYPE_LINE)
+h.begin = asd
+
 
 # ======== Colors =========
 red = (255, 0, 0)
@@ -171,6 +179,7 @@ def create_static(x1, y1, x2, y2):
     p1 = Vec2d(x1, y1)
     p2 = Vec2d(x2, y2)
     shape = pymunk.Segment(space.static_body, p1, p2, 0.0)
+    shape.collision_type = COLLTYPE_LINE
     space.add(shape)
     return shape
 
@@ -219,10 +228,11 @@ drag = False
 point1 = None
 click = 0
 
-
 calc_points()
 play = True
 while play:
+    h = space.add_collision_handler(COLLTYPE_BALL, COLLTYPE_LINE)
+    h.begin = asd
     mouse = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
