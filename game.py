@@ -167,10 +167,12 @@ class Type:
 
 
 def create_dynamic(x, y):
-    body = pymunk.Body(10, 100)
+    inertia = pymunk.moment_for_circle(10, 0, 25, (0,0))
+    body = pymunk.Body(10, inertia)
     body.position = (x, y)
     shape = pymunk.Circle(body, 10, (0, 0))
     shape.friction = 0.5
+    shape.elasticity = 0.95
     shape.collision_type = COLLTYPE_BALL
     space.add(body, shape)
     return shape
